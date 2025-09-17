@@ -1,11 +1,12 @@
 from function import Function
 from bisection import find_root
+import numpy as np
 
 if __name__=="__main__":
-    a = Function(0, -2, 1, domain=(1, 4))
+    a = Function(equation=lambda x: np.exp(-x) - np.sin(x), domain=(0, 3))
     a.plot()
+    print(f"Function a has a root at {find_root(a)}.")
 
-    print(f"Root at {find_root(a)}.")
 
 
 
