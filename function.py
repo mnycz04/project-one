@@ -3,7 +3,7 @@ import numpy as np
 
 
 class Function:
-    def __init__(self, *coefficients, equation=None, domain=(-(2**10), (2**10)), **kwargs):
+    def __init__(self, *coefficients, equation=None, domain=(-(2**10), (2**10))):
         if equation is not None:
             self.equation = equation
         elif len(coefficients) > 0:
