@@ -3,12 +3,15 @@ import numpy as np
 
 
 class Function:
-    def __init__(self, *coefficients, **kwargs):
-        if len(coefficients) > 0:
-            for coefficient in coefficients:
-                self.equation = np.polynomial.Polynomial(coefficients)
+    def __init__(self, *coefficients, equation=None, domain=(-(2**10), (2**10)), **kwargs):
+        if equation is not None:
+            self.equation = equation
+        elif len(coefficients) > 0:
+            self.equation = np.polynomial.Polynomial(coefficients)
         else:
             self.equation = np.polynomial.Polynomial.identity()
+
+        self.domain = domain
 
     def __eq__(self, other):
         return np.polynomial.Polynomial.__eq__(self.equation, other.equation)
@@ -18,3 +21,23 @@ class Function:
 
     def __call__(self, *args, **kwargs):
         return self.equation.__call__(*args, **kwargs)
+
+    def __str__(self):
+        return self.equation.__str__()
+
+    def plot(self):
+        x_vals = np.linspace(self.domain[0], self.domain[1], 10 * (self.domain[1] - self.domain[0]))
+        y_vals = self(x_vals)
+
+        plt.plot(x_vals, y_vals)
+        plt.grid(True)
+        plt.show()
+        return
+
+    def derivative(self, n: int = 1):
+        if type(n) is not int or n < 0:
+            return TypeError("n must be a positive integer")
+        else:
+            return self.equation.deriv(n)
+
+
