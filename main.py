@@ -1,5 +1,12 @@
 from function import Function
-import matplotlib.pyplot as plt
+from bisection import find_root
 
 if __name__=="__main__":
-    pass
+    a = Function(0, -2, 1, domain=(1, 4))
+    a.plot()
+
+    print(f"Root at {find_root(a)}.")
+
+
+
+

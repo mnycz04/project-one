@@ -17,7 +17,13 @@ class Function:
         return np.polynomial.Polynomial.__eq__(self.equation, other.equation)
 
     def __add__(self, other):
-        return self.equation
+        return self.equation.__add__(other.equation)
+
+    def __radd__(self, other):
+        return self.equation.__radd__(other.equation)
+
+    def __sub__(self, other):
+        return self.equation.__sub__(other.equation)
 
     def __call__(self, *args, **kwargs):
         return self.equation.__call__(*args, **kwargs)
