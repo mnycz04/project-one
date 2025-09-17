@@ -8,9 +8,8 @@ def find_root(f: Function, *, domain: tuple[float, float] = None, tolerance: flo
     neg_endpoint = domain[0] if f(domain[0]) < 0 else domain[1]
     pos_endpoint = domain[0] if f(domain[0]) > 0 else domain[1]
 
-    while (pos_endpoint - neg_endpoint) > tolerance:
+    while (np.abs(pos_endpoint - neg_endpoint)) > tolerance:
         midpoint = (pos_endpoint + neg_endpoint) / 2
-
         if f(midpoint) == 0: return midpoint
 
         if f(midpoint) < 0:
