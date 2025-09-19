@@ -1,35 +1,57 @@
 from function import Function
-from bisection import find_root
+import bisection
 import numpy as np
+
+def problem_one(*, part_a = True, part_b = True):
+    """
+    Question 1
+
+    Using the bisection method, find the following:
+
+    Part A: f(x) = e^{-x} - sin{x}
+    Find the smallest positive real root
+
+    Part B: f(x) = -1 - 4x + 5x^5
+    Fina all real roots
+
+    Keyword Args:
+    :part_a: Boolean: should part a be executed. True by default
+    :part_b: Boolean: should part b be executed. True by default
+    """
+
+    if part_a:
+        a = Function(equation=lambda x: np.exp(-x) - np.sin(x), domain=[0, 1], name="exp(-x) - sin(x)")
+        a.plot(domain=(0, 4))
+        print(f"Problem 1, Part A: {a} has a root at {bisection.find_root(a)}.")
+
+    if part_a:
+        b = Function(-1, -4, 0, 0, 0, 1, domain=(-1.5, 1.5))
+        print(f"Problem 1, Part B: {b} has roots at: "
+              f"{bisection.find_root(b, domain=(-1.5, -1))}, "
+              f"{bisection.find_root(b, domain=(-0.5, 0))}, "
+              f"{bisection.find_root(b, domain=(1, 1.5))}")
+
+        b.plot()
+
+def problem_three():
+    """
+    Question 3 Part a
+
+    """
+    f = Function(-7, 0, 0, 0, 0, 1)
+
+    g_1 = Function(equation=lambda x: x - (((x**5) - 7) / (x**2)), name="g_1")
+    g_2 = Function(equation=lambda x: x - (((x**5) - 7) / 12), name="g_2")
+    g_3 = Function(equation=lambda x: x * ((1 + (7 - (x**5)) / (x**2))**3) , name="g_3")
+    g_4 = Function(equation=lambda x: x - ((x**5 - 7) / 5 * (x**4)), name="g_4")
+
 
 if __name__=="__main__":
 
-    # Question 1
-    # Part a
 
-    function = Function(equation=lambda x: np.exp(-x) - np.sin(x), domain=[0, 1])
-    function.plot(domain=(0, 4))
-    print(f"Problem 1, Part A: {function} has a root at {find_root(function)}.")
+    # problem_one()
 
-    # Part b
-
-    function = Function(-1, -4, 0, 0, 0, 1, domain=(-1.5, 1.5))
-    print(f"Problem 1, Part B: {function} has roots at: " 
-          f"{find_root(function, domain=(-1.5, -1))}, " 
-          f"{find_root(function, domain=(-0.5, 0))}, " 
-          f"{find_root(function, domain=(1, 1.5))}")
-
-    function.plot()
-
-    # Question 3
-
-    g =  [Function(equation=lambda x: x - (((x**5) - 7) / (x**2)), name="g_1" ),
-          Function(equation=lambda x: x - (((x**5) - 7) / 12), name="g_2"),
-          Function(equation=lambda x: x * ((1 + (7 - (x**5)) / (x**2))**3) , name="g_3"),
-          Function(equation=lambda x: x - ((x**5 - 7) / 5 * (x**4)), name="g_4") ]
-
-    for func in g:
-        func.plot(domain=(-10, 10))
+    problem_three()
 
 
 
