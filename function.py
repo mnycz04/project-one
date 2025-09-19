@@ -3,7 +3,7 @@ import numpy as np
 
 
 class Function:
-    def __init__(self, *coefficients, equation=None, domain=(-(2**10), (2**10))):
+    def __init__(self, *coefficients, equation=None, name: str =None, domain=(-(2**10), (2**10))):
         if equation is not None:
             self.equation = equation
         elif len(coefficients) > 0:
@@ -11,6 +11,7 @@ class Function:
         else:
             self.equation = np.polynomial.Polynomial.identity()
 
+        self.name=name
         self.domain = domain
 
     def __eq__(self, other):
@@ -41,8 +42,10 @@ class Function:
         return self.equation.__call__(*args, **kwargs)
 
     def __str__(self):
-        return self.equation.__str__()
-
+        if self.name is None:
+            return self.equation.__str__()
+        else:
+            return self.name
     def plot(self, *, domain: tuple[float, float] =None):
         if domain is None:
             x_vals = np.linspace(self.domain[0], self.domain[1], int(10 * (self.domain[1] - self.domain[0])))
@@ -51,6 +54,7 @@ class Function:
         y_vals = self(x_vals)
 
         plt.plot(x_vals, y_vals)
+        plt.title(f"{str(self)}, on {domain if domain is not None else self.domain[0]} to {domain if domain is not None else self.domain}")
         plt.axhline(linewidth=4, color='k')
         plt.axvline(linewidth=4, color='k')
         plt.grid(True)
