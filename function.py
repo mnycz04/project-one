@@ -54,7 +54,7 @@ class Function:
         y_vals = self(x_vals)
 
         plt.plot(x_vals, y_vals)
-        plt.title(f"{str(self)}, on {domain if domain is not None else self.domain[0]} to {domain if domain is not None else self.domain}")
+        plt.title(f"{str(self)}, on {domain if domain is not None else self.domain}")
         plt.axhline(linewidth=4, color='k')
         plt.axvline(linewidth=4, color='k')
         plt.grid(True)
