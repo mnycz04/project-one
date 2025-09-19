@@ -43,11 +43,16 @@ class Function:
     def __str__(self):
         return self.equation.__str__()
 
-    def plot(self):
-        x_vals = np.linspace(self.domain[0], self.domain[1], 10 * (self.domain[1] - self.domain[0]))
+    def plot(self, *, domain: tuple[float, float] =None):
+        if domain is None:
+            x_vals = np.linspace(self.domain[0], self.domain[1], int(10 * (self.domain[1] - self.domain[0])))
+        else:
+            x_vals = np.linspace(domain[0], domain[1], int(10 * (domain[1] - domain[0])))
         y_vals = self(x_vals)
 
         plt.plot(x_vals, y_vals)
+        plt.axhline(linewidth=4, color='k')
+        plt.axvline(linewidth=4, color='k')
         plt.grid(True)
         plt.show()
         return

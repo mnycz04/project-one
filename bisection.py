@@ -1,7 +1,7 @@
 import numpy as np
 from function import Function
 
-def find_root(f: Function, *, domain: tuple[float, float] = None, tolerance: float = 2 ** -64):
+def find_root(f: Function, *, domain: tuple[float, float] = None, tolerance: float = 2 ** -48):
     if domain is None:
         domain = f.domain
 
@@ -10,6 +10,7 @@ def find_root(f: Function, *, domain: tuple[float, float] = None, tolerance: flo
 
     while (np.abs(pos_endpoint - neg_endpoint)) > tolerance:
         midpoint = (pos_endpoint + neg_endpoint) / 2
+
         if f(midpoint) == 0: return midpoint
 
         if f(midpoint) < 0:
