@@ -21,6 +21,16 @@ if __name__=="__main__":
 
     function.plot()
 
+    # Question 3
+
+    g =  [Function(equation=lambda x: x - (((x**5) - 7) / (x**2)), name="g_1" ),
+          Function(equation=lambda x: x - (((x**5) - 7) / 12), name="g_2"),
+          Function(equation=lambda x: x * ((1 + (7 - (x**5)) / (x**2))**3) , name="g_3"),
+          Function(equation=lambda x: x - ((x**5 - 7) / 5 * (x**4)), name="g_4") ]
+
+    for func in g:
+        func.plot(domain=(-10, 10))
+
 
 
 
