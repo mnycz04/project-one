@@ -1,8 +1,10 @@
 from function import Function
 import bisection
 import numpy as np
+import fixedpoint
 
-def problem_one(*, part_a = True, part_b = True):
+
+def problem_one(*, part_a=True, part_b=True):
     """
     Question 1
 
@@ -33,28 +35,29 @@ def problem_one(*, part_a = True, part_b = True):
 
         b.plot()
 
+
 def problem_three():
     """
     Question 3 Part a
 
     """
-    f = Function(-7, 0, 0, 0, 0, 1)
 
-    g_1 = Function(equation=lambda x: x - (((x**5) - 7) / (x**2)), name="g_1")
-    g_2 = Function(equation=lambda x: x - (((x**5) - 7) / 12), name="g_2")
-    g_3 = Function(equation=lambda x: x * ((1 + (7 - (x**5)) / (x**2))**3) , name="g_3")
-    g_4 = Function(equation=lambda x: x - ((x**5 - 7) / 5 * (x**4)), name="g_4")
+    g_1 = fixedpoint.FixedPointMethod(
+        Function(equation=lambda x: x - (((x ** 5) - 7) / (x ** 2)), name="g_1", domain=(-5, 5)))
+    g_2 = fixedpoint.FixedPointMethod(
+        Function(equation=lambda x: x - (((x ** 5) - 7) / 12), name="g_2", domain=(-5, 5)))
+    g_3 = fixedpoint.FixedPointMethod(
+        Function(equation=lambda x: x * ((1 + (7 - (x ** 5)) / (x ** 2)) ** 3), name="g_3", domain=(-5, 5)))
+    g_4 = fixedpoint.FixedPointMethod(
+        Function(equation=lambda x: x - ((x ** 5 - 7) / 5 * (x ** 4)), name="g_4", domain=(-5, 5)))
+
+    print(g_1(1))
+    print(g_2(1))
+    print(g_3(1))
+    print(g_4(1))
 
 
-if __name__=="__main__":
-
-
+if __name__ == "__main__":
     # problem_one()
 
     problem_three()
-
-
-
-
-
-
