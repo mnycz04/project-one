@@ -14,16 +14,28 @@ class Function:
         self.domain = domain
 
     def __eq__(self, other):
-        return np.polynomial.Polynomial.__eq__(self.equation, other.equation)
+        if type(other) is Function:
+            return np.polynomial.Polynomial.__eq__(self.equation, other.equation)
+        else:
+            return NotImplemented
 
     def __add__(self, other):
-        return self.equation.__add__(other.equation)
+        if type(other) is Function:
+            return self.equation.__add__(other.equation)
+        else:
+            return NotImplemented
 
     def __radd__(self, other):
-        return self.equation.__radd__(other.equation)
+        if type(other) is Function:
+            return self.equation.__radd__(other.equation)
+        else:
+            return NotImplemented
 
     def __sub__(self, other):
-        return self.equation.__sub__(other.equation)
+        if type(other) is Function:
+            return self.equation.__sub__(other.equation)
+        else:
+            return NotImplemented
 
     def __call__(self, *args, **kwargs):
         return self.equation.__call__(*args, **kwargs)
