@@ -38,6 +38,24 @@ class Function:
         else:
             return NotImplemented
 
+    def __mul__(self, other):
+        if type(other) is Function:
+            return self.equation.__mul__(other.equation)
+        else:
+            return NotImplemented
+
+    def __rmul__(self, other):
+        if type(other) is Function:
+            return self.equation.__rmul__(other.equation)
+        else:
+            return NotImplemented
+
+    def __divmod__(self, other):
+        if type(other) is Function:
+            return self.equation.__divmod__(other.equation)
+        else:
+            return NotImplemented
+
     def __call__(self, *args, **kwargs):
         return self.equation.__call__(*args, **kwargs)
 
@@ -55,6 +73,7 @@ class Function:
 
         plt.plot(x_vals, y_vals)
         plt.title(f"{str(self)}, on {domain if domain is not None else self.domain}")
+        plt.xlim(self.domain[0], self.domain[1])
         plt.axhline(linewidth=4, color='k')
         plt.axvline(linewidth=4, color='k')
         plt.grid(True)
