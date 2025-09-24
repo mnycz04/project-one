@@ -3,7 +3,7 @@ import numpy as np
 
 
 class Function:
-    def __init__(self, *coefficients, equation=None, name: str =None, domain=(-(2**10), (2**10))):
+    def __init__(self, *coefficients, equation=None, name: str = None, domain=(-(2 ** 10), (2 ** 10))):
         if equation is not None:
             self.equation = equation
         elif len(coefficients) > 0:
@@ -11,8 +11,22 @@ class Function:
         else:
             self.equation = np.polynomial.Polynomial.identity()
 
-        self.name=name
-        self.domain = domain
+        self.name = name
+        if domain[0] < domain[1]:
+            self.domain = domain
+        else:
+            self.domain = (domain[1], domain[0])
+
+    @property
+    def domain(self):
+        return self.domain
+
+    @domain.setter
+    def domain(self, new_domain: tuple[float, float]):
+        if new_domain[0] < new_domain[1]:
+            self._domain = new_domain
+        else:
+            self._domain = (new_domain[1], new_domain[0])
 
     def __eq__(self, other):
         if type(other) is Function:
@@ -56,15 +70,19 @@ class Function:
         else:
             return NotImplemented
 
-    def __call__(self, *args, **kwargs):
-        return self.equation.__call__(*args, **kwargs)
+    def __call__(self, *args) -> float:
+        for x in args:
+            if self.domain[0] <= x <= self.domain[1]:
+                raise ValueError(f"{x} not in function domain {self.domain}.")
+        return self.equation.__call__()
 
     def __str__(self):
         if self.name is None:
             return self.equation.__str__()
         else:
             return self.name
-    def plot(self, *, domain: tuple[float, float] =None):
+
+    def plot(self, *, domain: tuple[float, float] = None):
         if domain is None:
             x_vals = np.linspace(self.domain[0], self.domain[1], int(10 * (self.domain[1] - self.domain[0])))
         else:
@@ -87,5 +105,3 @@ class Function:
             return TypeError("n must be a positive integer")
         else:
             return Function(equation=self.equation.deriv(n))
-
-
