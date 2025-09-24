@@ -19,7 +19,7 @@ class Function:
 
     @property
     def domain(self):
-        return self.domain
+        return self._domain
 
     @domain.setter
     def domain(self, new_domain: tuple[float, float]):
@@ -74,7 +74,7 @@ class Function:
         for x in args:
             if self.domain[0] <= x <= self.domain[1]:
                 raise ValueError(f"{x} not in function domain {self.domain}.")
-        return self.equation.__call__()
+        return self.equation.__call__(*args)
 
     def __str__(self):
         if self.name is None:
