@@ -81,11 +81,11 @@ class Function:
         return
 
     def derivative(self, n: int = 1):
-        if self.equation is not np.polynomial:
+        if type(self.equation) is not np.polynomial.polynomial.Polynomial:
             return NotImplemented
         if type(n) is not int or n < 0:
             return TypeError("n must be a positive integer")
         else:
-            return self.equation.deriv(n)
+            return Function(equation=self.equation.deriv(n))
 
 
