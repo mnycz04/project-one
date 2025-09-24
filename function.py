@@ -72,8 +72,15 @@ class Function:
 
     def __call__(self, *args) -> float:
         for x in args:
-            if self.domain[0] <= x <= self.domain[1]:
-                raise ValueError(f"{x} not in function domain {self.domain}.")
+            if type(x) is np.array:
+                for val in x:
+                    if not(self.domain[0] <= val <= self.domain[1]):
+                        raise ValueError(f"{val} not in function domain {self.domain}.")
+            elif isinstance(x, (int, float, complex)):
+                if not(self.domain[0] <= x <= self.domain[1]):
+                    raise ValueError(f"{x} not in function domain {self.domain}.")
+            else:
+                continue
         return self.equation.__call__(*args)
 
     def __str__(self):
