@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from warnings import warn
 
 
 class Function:
@@ -70,17 +71,7 @@ class Function:
         else:
             return NotImplemented
 
-    def __call__(self, *args) -> float:
-        for x in args:
-            if type(x) is np.array:
-                for val in x:
-                    if not(self.domain[0] <= val <= self.domain[1]):
-                        raise ValueError(f"{val} not in function domain {self.domain}.")
-            elif isinstance(x, (int, float, complex)):
-                if not(self.domain[0] <= x <= self.domain[1]):
-                    raise ValueError(f"{x} not in function domain {self.domain}.")
-            else:
-                continue
+    def __call__(self, *args):
         return self.equation.__call__(*args)
 
     def __str__(self):
