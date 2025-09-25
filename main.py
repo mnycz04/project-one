@@ -1,3 +1,4 @@
+from fixedpoint import FixedPointMethod
 from function import Function
 import bisection
 import numpy as np
@@ -46,25 +47,25 @@ def problem_three():
     @timeit.time_it
     def g_1(x: float) -> float:
         f = fixedpoint.FixedPointMethod(
-            Function(equation=lambda x: x - (((x ** 5) - 7) / (x ** 2)), name="g_1", domain=(-5, 5)))
+            Function(equation=lambda x: x - ((x**5 - 7) / (x**2)), name="g_1", domain=(0, 15)))
         return f(x)
 
     @timeit.time_it
     def g_2(x: float) -> float:
         f = fixedpoint.FixedPointMethod(
-            Function(equation=lambda x: x - (((x ** 5) - 7) / 12), name="g_2", domain=(-5, 5)))
+            Function(equation=lambda x: x - (((x ** 5) - 7) / 12), name="g_2", domain=(0, 15)))
         return f(x)
 
     @timeit.time_it
     def g_3(x: float) -> float:
         f = fixedpoint.FixedPointMethod(
-            Function(equation=lambda x: x * ((1 + (7 - (x ** 5)) / (x ** 2)) ** 3), name="g_3", domain=(-5, 5)))
+            Function(equation=lambda x: x * ((1 + (7 - (x ** 5)) / (x ** 2)) ** 3), name="g_3", domain=(0, 15)))
         return f(x)
 
     @timeit.time_it
     def g_4(x: float) -> float:
         f = fixedpoint.FixedPointMethod(
-            Function(equation=lambda x: x - ((x ** 5 - 7) / 5 * (x ** 4)), name="g_4", domain=(-5, 5)))
+            Function(equation=lambda x: x - ((x ** 5 - 7) / (5 * (x ** 4))), name="g_4", domain=(0, 15)))
         return f(x)
 
     print(g_1(1))
@@ -80,6 +81,7 @@ def problem_four():
     f.plot()
     point = g(np.abs(f.domain[0] - f.domain[1]) / 2, tolerance=10 ** (-6))
     print(f"{f} has a fixed point on {f.domain[0], f.domain[1]} at g({point:.5f}) = {f(point):.5f}.")
+    print(f"{f} took {FixedPointMethod.iterations()} iterations to complete.")
 
 
 def problem_five():
@@ -88,6 +90,7 @@ def problem_five():
     g = fixedpoint.FixedPointMethod(f)
     point = g(np.abs(f.domain[0] - f.domain[1]), tolerance=2 ** (-64))
     print(f"{f} has a fixed point on {f.domain[0], f.domain[1]} at g({point}) = {f(point)}.")
+    print(f"{f} took {FixedPointMethod.iterations()} iterations to complete.")
 
 
 def problem_six():
@@ -98,14 +101,30 @@ def problem_six():
     """
     def part_a():
         f = Function(-7, 3, -5, 1, domain=(4, 6))
+
         f_prime = f.derivative()
         print(f_prime)
         g = fixedpoint.FixedPointMethod(Function(equation=lambda x: x - (f(x) / f_prime(x))))
 
         f.plot()
-        print(f"{f} has a fixed point on ({f.domain[0], f.domain[1]}) at {g(5)}.")
+        point = g(5)
+        print(f"{f} has a root on ({f.domain[0], f.domain[1]}) at f({point:.5f}) = {f(point):.5f}.")
+
+    def part_b(guess: float = np.pi):
+        f = Function(equation=lambda x: np.tan(x), name="tan(x)", domain=(3, 4))
+        f_prime = Function(equation=lambda x: 1 / (np.cos(x) ** 2), name="sec^2(x)", domain=(3, 4))
+
+        g = fixedpoint.FixedPointMethod(Function(equation=lambda x: x - (f(x) / f_prime(x))))
+
+        f.plot()
+        point = g(guess)
+        print(f"Initial Guess: {guess}")
+        print(f"{f} has a root on ({f.domain[0], f.domain[1]}) at f({point:.5f}) = {f(point):.5f}.")
+        print(f"Number of iterations: {g.iterations()}")
+
 
     part_a()
+    part_b()
 
 if __name__ == "__main__":
     # problem_one()
