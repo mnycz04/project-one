@@ -47,7 +47,7 @@ def problem_three():
     @timeit.time_it
     def g_1(x: float) -> float:
         f = fixedpoint.FixedPointMethod(
-            Function(equation=lambda x: x - ((x**5 - 7) / (x**2)), name="g_1", domain=(0, 15)))
+            Function(equation=lambda x: x - ((x ** 5 - 7) / (x ** 2)), name="g_1", domain=(0, 15)))
         return f(x)
 
     @timeit.time_it
@@ -99,6 +99,7 @@ def problem_six():
 
     g(x) = x_n - f'(x_n) (x - x_n)
     """
+
     def part_a():
         f = Function(-7, 3, -5, 1, domain=(4, 6))
 
@@ -122,9 +123,40 @@ def problem_six():
         print(f"{f} has a root on ({f.domain[0], f.domain[1]}) at f({point:.5f}) = {f(point):.5f}.")
         print(f"Number of iterations: {g.iterations()}")
 
-
     part_a()
     part_b()
+
+
+def problem_eight():
+    def part_ab():
+        f = Function(-8, 0, 1, domain=(2, 3))
+        f_prime = f.derivative()
+        f_very_prime = f_prime.derivative()
+        g = fixedpoint.FixedPointMethod(Function(equation=lambda x: x - (f(x) / f_prime(x))))
+
+        newton = g(3, tolerance=10 ** (-6))
+
+        f.plot()
+        print(f"{f} has a root on {f.domain} at f({newton:.5f}) = {f(newton):.5f}.")
+        print(f"Newton's method took {FixedPointMethod.iterations()} iterations to complete.")
+
+        g = fixedpoint.FixedPointMethod(
+            Function(equation=lambda x: x
+                                        - (
+                                            f(x) / f_prime(x)
+                                        )
+                                        * (1
+                                           - (f(x) * f_very_prime(x))
+                                           / (2 * (f_prime(x) ** 2))
+                                           ) ** (-1)
+                     ))
+        hailey = g(3, tolerance=10 ** (-6))
+
+        print(f"{f} has a root on {f.domain} at f({hailey:.5f}) = {f(hailey):.5f}.")
+        print(f"Hailey's method took {FixedPointMethod.iterations()} iterations to complete.")
+
+    part_ab()
+
 
 if __name__ == "__main__":
     # problem_one()
@@ -135,4 +167,6 @@ if __name__ == "__main__":
 
     # problem_five()
 
-    problem_six()
+    # problem_six()
+
+    problem_eight()
