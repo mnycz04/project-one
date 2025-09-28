@@ -3,7 +3,6 @@ from function import Function
 import bisection
 import numpy as np
 import fixedpoint
-import timeit
 
 
 def problem_one(*, part_a=True, part_b=True):
@@ -43,35 +42,31 @@ def problem_three():
     Question 3 Part a
 
     """
-
-    @timeit.time_it
     def g_1(x: float) -> float:
         f = fixedpoint.FixedPointMethod(
             Function(equation=lambda x: x - ((x ** 5 - 7) / (x ** 2)), name="g_1", domain=(0, 15)))
         return f(x)
-
-    @timeit.time_it
     def g_2(x: float) -> float:
         f = fixedpoint.FixedPointMethod(
             Function(equation=lambda x: x - (((x ** 5) - 7) / 12), name="g_2", domain=(0, 15)))
         return f(x)
-
-    @timeit.time_it
     def g_3(x: float) -> float:
         f = fixedpoint.FixedPointMethod(
             Function(equation=lambda x: x * ((1 + (7 - (x ** 5)) / (x ** 2)) ** 3), name="g_3", domain=(0, 15)))
         return f(x)
-
-    @timeit.time_it
     def g_4(x: float) -> float:
         f = fixedpoint.FixedPointMethod(
             Function(equation=lambda x: x - ((x ** 5 - 7) / (5 * (x ** 4))), name="g_4", domain=(0, 15)))
         return f(x)
 
-    print(g_1(1))
-    print(g_2(1))
-    print(g_3(1))
-    print(g_4(1))
+    print(f"Result of g_1: {g_1(1)}")
+    print(f"Last method took {FixedPointMethod.iterations()} steps to complete.")
+    print(f"Result of g_2: {g_2(1)}")
+    print(f"Last method took {FixedPointMethod.iterations()} steps to complete.")
+    print(f"Result of g_3: {g_3(1)}")
+    print(f"Last method took {FixedPointMethod.iterations()} steps to complete.")
+    print(f"Result of g_4: {g_4(1)}")
+    print(f"Last method took {FixedPointMethod.iterations()} steps to complete.")
 
 
 def problem_four():
@@ -161,7 +156,7 @@ def problem_eight():
 if __name__ == "__main__":
     # problem_one()
 
-    # problem_three()
+    problem_three()
 
     # problem_four()
 
