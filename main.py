@@ -1,9 +1,13 @@
+# ./main.py
+
 from fixedpoint import FixedPointMethod
 from function import Function
 import bisection
 import numpy as np
 import fixedpoint
-
+# import sys
+#
+# sys.stdout = open('output.txt', 'w')
 
 def problem_one(*, part_a=True, part_b=True):
     """
@@ -154,15 +158,21 @@ def problem_eight():
 
 
 if __name__ == "__main__":
+    print("Problem 1:")
     problem_one()
-
+    print("\n\n")
+    print("Problem 3:")
     problem_three()
-
+    print("\n\n")
+    print("Problem 4:")
     problem_four()
-
+    print("\n\n")
+    print("Problem 5:")
     problem_five()
-
+    print("\n\n")
+    print("Problem 6:")
     problem_six()
-
+    print("\n\n")
+    print("Problem 8")
     problem_eight()
     pass
