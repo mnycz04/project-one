@@ -154,15 +154,15 @@ def problem_eight():
 
 
 if __name__ == "__main__":
-    # problem_one()
+    problem_one()
 
     problem_three()
 
-    # problem_four()
+    problem_four()
 
-    # problem_five()
+    problem_five()
 
-    # problem_six()
+    problem_six()
 
-    # problem_eight()
+    problem_eight()
     pass
